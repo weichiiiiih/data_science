@@ -45,13 +45,60 @@ recordExample2 =list(
   "name" = "John", 
   "age" = 38, 
   "height" = 178, 
-  "isMarried" = F
+  "ismarried" = F
 )
 
 
 recordExample1[[1]]
 recordExample2[[1]]
 recordExample2$age
+
+#Retrieve multiple element values ----
+# by position or index 
+listexample
+listexample[c(1,3)]
+
+atomicExample = c(1, 4, 78, 455, -23)
+atomicExample
+atomicExample[c( 1,4 )]
+atomicExample[c( 1:3 )]
+
+
+##by element name 
+recordExample2
+
+
+
+JohnsFamily <-
+person1 =list(
+    name = "John", 
+    age = 35,
+    height = 180,
+    "ismarried" = F
+    )
+
+person2 = list(
+        name = "Bill",
+        age = 5,
+       height = 130,
+      "ismarried" = F
+    )
+
+
+collective_data = list(person1, person2)
+
+
+##sequential retrieval ----
+##retrieval no.2 person data and tell his name 
+collective_data[[2]]
+
+collective_data[[2]][["name"]]
+
+##retrieval no.2 person data and tell hisname and is married?
+collective_data[[2]][c("name", "ismarried")]
+collective_data[[2]]
+
+
 
 
 
