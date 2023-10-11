@@ -48,19 +48,61 @@ plane = list(
 
 View(plane)
 
-
+##每次上課的最後一行：存檔
 saveRDS(flights,file = "data/flight.rds" )
 
+##每次上課的第一行：引入之前寫完的語法就好
+flights <- readRDS("data/flight.rds")
 
 
 
+##import json
+filepath = flights$data[[1]]$file
+flightsData <- jsonlite::fromJSON(filepath)
+
+flights$data[[1]]$data_frame <- flightsData
 
 
 
+#type and class -----
+typeof(flightsData)
+
+class(flightsData)
+
+View(flightsData)
+View(flights)
+
+
+##假設要取某個值
+flightsData[[3, "ScheduleStartDate"]]
+flightsData[[3, "AirlineID"]]
+
+flightsData[c(2,4), c("AirlineID", "FlightNumber")]
+flightsData[c(2,4)]
+flightsData[c(3), c("AirlineID", "FlightNumber")]
+
+
+#feature by feature
+names = c("John", "Mary", "Tom")
+ages = c(30, 25, 35)
+isMarried = c(TRUE, FALSE, TRUE)
+
+# feature by feature stacking
+data_fbf_list <- list(
+  name = names, 
+  age = ages, 
+  married = isMarried)
+
+
+class(data_obo)
+class(data_fbf)
+
+class(data_fbf_list)
+data_fbf_list[1,c(1,3)]
 
 
 
-
-
+##存檔-----
+saveRDS(flights, "data/flights.rds")
 
 
