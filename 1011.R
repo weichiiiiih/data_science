@@ -33,7 +33,7 @@ data2$information$name
 data2$information$source_link
 
 data2 <- list(
-  file_place = "data/international_flights.json"
+  file_place = "data/international_flights.json",
   information = list(
     name = "國際航空定期時刻表",
     source_link ="https://data.gov.tw/dataset/161167") 
@@ -41,4 +41,26 @@ data2 <- list(
 )
 
 
-saveRDS(something, ..... )
+#flights$data[[1]] #給我data的第一個資訊
+plane = list(
+  data = list (data1)
+)
+
+View(plane)
+
+
+saveRDS(flights,file = "data/flight.rds" )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
