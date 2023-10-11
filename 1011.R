@@ -93,7 +93,7 @@ data_fbf_list <- list(
   age = ages, 
   married = isMarried)
 
-
+##這裡沒學到 完蛋
 class(data_obo)
 class(data_fbf)
 
