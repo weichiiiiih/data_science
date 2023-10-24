@@ -65,5 +65,62 @@ typeof(vec)
 class(vec)
 
 
+bloodTypes <- c("AB", "AB", "A", "B", "A", "A", "B", "O", "O", "AB")
 
 
+householdIncomes <- c(
+  "middle income", "high income", "middle income", "low income",
+  "middle income", "high income", "high income", "low income",
+  "high income", "middle income", "high income", "middle income"
+)
+
+
+class(householdIncomes)
+
+
+householdIncomes[[1]]
+
+householdIncomes[[1]] < "high income"
+householdIncomes[[1]] < "low income"
+
+
+# comparing two strings 
+"high income" < "middle income"
+
+"h" < "m"
+
+#parcing----
+#tell your computer to understand your value more accurately
+
+
+householdIncome #character
+
+fct_householdIncome <- factor(householdIncomes) #parse into factor
+
+ord_fct_householdIncome <- ordered(householdIncomes, levels = c("low income", "middle income", "high income"))
+
+class(fct_householdIncome)
+
+class(ord_fct_householdIncome) 
+
+
+householdIncomes[[1]] 
+householdIncomes[[1]] < "high income"
+ord_fct_householdIncome[[1]] 
+ord_fct_householdIncome[[1]] < "high income"
+
+
+#parse airlineID
+class(flightsData$AirlineID)
+
+factor(flightsData$AirlineID)
+
+class(flightsData$AirlineID)
+
+flightsData$AirlineID <- factor(flightsData$AirlineID)
+class(flightsData$AirlineID)
+
+flights$data[[1]]$data_frame <- flightsData
+
+
+saveRDS(flights, "data/flights_2.rds")
