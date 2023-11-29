@@ -97,8 +97,23 @@ for (a in 1:6){
   abc[[a]] <-dataSet[[a]]$children
 }
 
-  
-  
+
+flights <- readRDS("data/flights_week10.rds")
+
+flightsData2 |> 
+  split(
+  flightsData$AirlineID 
+) -> split_data
+
+
+for (a in seq_along(split_data)){
+numberofflights[[a]] <- 
+  nrow(split_data[[a]])
+}
+
+
+View(split_data[[1]])
+nrow(split_data[[1]])
 
 
 #example(？？？？)
