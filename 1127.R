@@ -122,5 +122,13 @@ earn <-
   jsonlite::fromJSON("https://mopsfin.twse.com.tw/opendata/t187ap05_L.csv", simplifyDataFrame = T)
 
 
+pay <-jsonlite::fromJSON("file:///Users/weichiiiiih/Downloads/c765f490a06a5dea47b641d01370a7ee_export.json", simplifyDataFrame = T)
 
 
+readRDS("data_science/b63a53413efde2c17791d2b482babb81_export.json")
+
+industry <- jsonlite::fromJSON("44314524414150faa7ccb2800813f493_export.json", simplifyDataFrame = T)
+View(industry)
+
+train <- jsonlite::fromJSON("train.json", simplifyDataFrame = T)
+View(train)
