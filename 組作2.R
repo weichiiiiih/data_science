@@ -291,6 +291,21 @@ result2 <- change_rate(values2)
 print(result2)
 
 
+#110-111年改變量----
+values3 <- c( 530912219,
+              587017562)
+change_rate <- function(values) {
+  new_values <- values[-1]
+  old_values <- values[-length(values)]
+  
+  rate <- (new_values - old_values) / old_values * 100
+  
+  return(rate)
+}
+
+result3 <- change_rate(values3)
+print(result3)
+
 
 #108年進出站相關係數------
 co108 <- data.frame(
@@ -326,35 +341,43 @@ cor108 <- cor(co108$X....c.788970453..32213290..28021574..26383018..22918425..15
 print(paste("相關係數",cor108))
 
 
-#前10進站的折線圖
-top10_data <- data[c(3,46,45,76,82,79,65,73,80,72,51,89,47,40), ]
-View(top10_data)
-
-#添加列名稱
-colnames(top10_data) <- c(
-  "台北車站R",
-  "台北車站BL",
-  "西門 ",
-  "市政府 ",
-  "忠孝復興B次", 
-  "淡水 ",
-  "新埔 ",
-  "忠孝敦化 ",
-  "板橋 ",
-  "劍潭",
-  "台北/世貿 ",
-  "中山",
-  "頂溪" )
+  
+# 複製轉運站-----
+# 複製第38列、做成中正紀念堂R
+new_row1 <- data[38, ]
+names(new_row1) <- names(data)
+data <- rbind(data, new_row1)
 
 
-#把重合的站點分開來看----
-excel_file <-("/Users/weichiiiiih/Desktop/data_science/data/metro.xlsx")
-copyline38 <- readxl::read_excel(excel_file, sheet = 1)
-# 复制第38列的数据并添加为新的一列
-data[["中正紀念堂R線"]] <- data[[38]]
+# 複製第37列、做成古亭Y
+new_row2 <- data[37, ]
+names(new_row2) <- names(data)
+data <- rbind(data, new_row2)
 
-# 显示结果
-print(data)
+# 複製第76列、做成西門G
+new_row3 <- data[76, ]
+names(new_row3) <- names(data)
+data <- rbind(data, new_row3)
+
+
+# 複製第113列、做成東門R
+new_row4 <- data[113, ]
+names(new_row4) <- names(data)
+data <- rbind(data, new_row4)
+
+
+
+# 直接索引刪除指定行
+data <- data[rownames(data) != "382", ]
+na.omit(data, inplace = TRUE)
+data <- na.omit(data)
+
+
+
+#調整列數
+rownames(data) <- NULL
+
+
 
 #分組-------
 #安裝
@@ -363,3 +386,119 @@ library(readxl)
 library(dplyr)
 install.packages("dplyr")
 
+# 指定分組的索引
+numberV9 <- data$V9 |> as.numeric()
+v9_data <- data[ 4:124, 10, drop = FALSE]
+v9_data <- as.data.frame((v9_data))
+View(v9_data)
+numberV9data <- as.numeric(v9_data$V9)
+rownames(v9_data) <- NULL
+
+
+# 指定分組的索引
+group_indices <- c(
+  c(42, 63 ,64 ,65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84), #板南線
+  c(41,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,85,86,87,88,89,18,121), #淡水
+  c(37,38,39,40,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,119), #中和
+  c(25,26,27,28,29,30,31,32,33,34,35,36,90,91,92,93,94,95,96,120), #松山
+  c(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24) #文湖
+)
+
+
+# 板南線------
+group_indices1 <- c(42, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84)
+selected_data1 <- v9_data[group_indices1, ]
+selected_data1 <- as.numeric(selected_data1)
+
+# 找到最大值和最小值對應的行索引
+row_index_max1 <- which(selected_data1 == max_value1)
+row_index_min1 <- which(selected_data1 == min_value1)
+#data[c(73+3,65+3),c(1)] #這裡回傳的是list的順序，所以算上面的數字再把列數加三
+row_index_max1
+row_index_min1 
+
+data[c(76,68),c(1)]
+
+cat("最大值:", data[c(76),c(1)], max_value1)
+cat("最小值:", data[c(68),c(1)], min_value1)
+cat("平均值:", mean_value1, "\n")
+
+
+
+# 淡水信義線
+group_indices2 <- c(41,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,85,86,87,88,89,18,121)
+selected_data2 <- v9_data[group_indices2, ]
+selected_data2 <- as.numeric(selected_data2)
+
+# 找到最大值和最小值對應的行索引
+row_index_max2 <- which(selected_data2 == max_value2)
+row_index_min2 <- which(selected_data2 == min_value2)
+row_index_max2
+row_index_min2
+#data[c(a+3,b+3),c(1)]
+data[c(46,61),c(1)]
+
+
+cat("最大值:", data[c(46),c(1)], max_value2)
+cat("最小值:", data[c(61),c(1)], min_value2)
+cat("平均值:", mean_value2, "\n")
+
+
+
+
+# 中和新蘆線------------
+group_indices3 <- c(37,38,39,40,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,119)
+selected_data3 <- v9_data[group_indices3, ]
+selected_data3 <- as.numeric(selected_data3)
+
+# 找到最大值和最小值對應的行索引
+row_index_max3 <- which(selected_data3 == max_value3)
+row_index_min3 <- which(selected_data3 == min_value3)
+row_index_max3
+row_index_min3
+#data[c(a+3,b+3),c(1)]
+data[c(40,103),c(1)]
+
+
+cat("最大值:", data[c(40),c(1)], max_value3)
+cat("最小值:", data[c(103),c(1)], min_value3)
+cat("平均值:", mean_value3, "\n")
+
+
+
+#松山新店線-----
+group_indices4 <- c(25,26,27,28,29,30,31,32,33,34,35,36,90,91,92,93,94,95,96,120)
+selected_data4 <- v9_data[group_indices4, ]
+selected_data4 <- as.numeric(selected_data4)
+
+# 找到最大值和最小值對應的行索引
+row_index_max4 <- which(selected_data4 == max_value4)
+row_index_min4 <- which(selected_data4 == min_value4)
+row_index_max4
+row_index_min4
+#data[c(a+3,b+3),c(1)]
+data[c(123,28),c(1)]
+
+
+cat("最大值:", data[c(123),c(1)], max_value4)
+cat("最小值:", data[c(28),c(1)], min_value4)
+cat("平均值:", mean_value4, "\n")
+
+
+#文湖線-----
+group_indices5 <- c(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24)
+selected_data5 <- v9_data[group_indices5, ]
+selected_data5 <- as.numeric(selected_data5)
+
+# 找到最大值和最小值對應的行索引
+row_index_max5 <- which(selected_data5 == max_value5)
+row_index_min5 <- which(selected_data5 == min_value5)
+row_index_max5
+row_index_min5
+#data[c(a+3,b+3),c(1)]
+data[c(27,14),c(1)]
+
+
+cat("最大值:", data[c(27),c(1)], max_value5)
+cat("最小值:", data[c(14),c(1)], min_value5)
+cat("平均值:", mean_value5, "\n")
