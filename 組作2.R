@@ -12,13 +12,15 @@ library(tibble)
 install.packages("ggplot2")
 library(ggplot2)
 
-#分組-------
+
 #安裝
 install.packages(c("readxl", "dplyr"))
 library(readxl)
 library(dplyr)
 install.packages("dplyr")
 
+install.packages("knitr")
+library(knitr)
 
 #104年進站----
 numberV1 <- data$V1 |> as.numeric()
@@ -31,8 +33,6 @@ sortnumber1V <- sort(numberV1, decreasing=F,index.return = TRUE)
 print(sortnumber1V)
 # 26  12  59  64  10  24  21  58 101 102 
 data[c(28,14,61,66,12,26,23,60,103,104), c(1,2)] #後10
-
-
 
 
 #104年出站----
